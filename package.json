@@ -4,8 +4,6 @@
   "description": "The backend server for the Smart Public Transportation App, providing APIs for real-time bus tracking, route and fare information, lost item reporting, and a dashboard for conductors and admins.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky",
     "start": "nodemon index.js"
   },
   "author": "",
@@ -15,22 +13,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "husky": "^9.1.6",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
     "nodemon": "^3.1.7"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.5.0",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "eslint --max-warnings=0",
-      "prettier --write"
-    ],
-    "**/*.{html,json,css,scss,md,mdx}": ["prettier -w"]
   }
 }
