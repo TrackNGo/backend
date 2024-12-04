@@ -4,7 +4,7 @@
   "description": "The backend server for the Smart Public Transportation App, providing APIs for real-time bus tracking, route and fare information, lost item reporting, and a dashboard for conductors and admins.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon ./src/index.js"
   },
   "author": "",
   "license": "ISC",
