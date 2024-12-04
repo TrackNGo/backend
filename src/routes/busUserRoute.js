@@ -9,7 +9,7 @@ router.post('/searchFor-buses', getBus);
 router.post('/getSpecific-busRoute', getRoute);
 
 // API to fetch all bus locations
-router.get('/getBus-locations/:busId', getBusLocation);
+router.get('/getBus-locations/:busNumber', getBusLocation);
 
 // Get location code by searching 
 router.post('/getLocationCode-searchByName', getLocationCodeSearchByName);
