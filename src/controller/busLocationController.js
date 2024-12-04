@@ -1,6 +1,6 @@
 const BusLocation = require('../models/busLocationModel');
 
-async function updateBusLocatioin(req, res) {
+async function updateBusLocation(req, res) {
 
     const { busNumber, latitude, longitude, accuracy } = req.body;
     console.log(`lat : ${busNumber}`)
@@ -19,5 +19,5 @@ async function updateBusLocatioin(req, res) {
 }
 
 module.exports = {
-    updateBusLocatioin
+    updateBusLocation
 }
