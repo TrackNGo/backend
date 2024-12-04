@@ -1,8 +1,8 @@
 const express = require('express');
 const route = express.Router();
-const { updateBusLocatioin } = require('../controller/busLocationController');
+const { updateBusLocation } = require('../controller/busLocationController');
 
 // API to update bus location
-route.put('/update-location', updateBusLocatioin);
+route.put('/update-location', updateBusLocation);
 
 module.exports = route;
