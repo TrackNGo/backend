@@ -1,4 +1,4 @@
-const BusLocation = require('../models/busLocation');
+const BusLocation = require('../models/busLocationModel');
 
 async function updateBusLocatioin(req, res) {
 
