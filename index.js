@@ -1,14 +1,28 @@
-const express= require('express');
-const app=express();
+// index.js
+require('dotenv').config();
+const express = require('express');
 const cors = require('cors');
-require('dotenv').config()
-const port = process.env.PORT;
+const { databaseConnection } = require('./config/dbConnection');
+const userRoutes = require('./routes/userRoutes');
 
-
-app.use(cors());
+const app = express();
 app.use(express.json());
 
-app.listen(port,()=>{
-    console.log(`Server is up on port ${port}`);
-});
 
+app.use(cors(
+    {
+        origin:'*',
+        methods: ['GET', 'POST'], // Allow specific HTTP methods
+        credentials: true // If you want to include cookies or authorization headers
+    }
+));
+
+databaseConnection();
+
+app.use('/api-user', userRoutes);
+
+const PORT = process.env.CLIENT_BACKEND_PORT;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port number : ${PORT}`);
+});
