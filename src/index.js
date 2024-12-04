@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const userRoutes = require('./routes/user.route');
+const busUserRoute = require('./routes/busUserRoute');
 const { databaseConnection } = require('./config/dbConnection');
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(cors(
 
 databaseConnection();
 
-app.use('/api-user', userRoutes);
+app.use('/api-user', busUserRoute);
 
 const PORT = process.env.CLIENT_BACKEND_PORT;
 

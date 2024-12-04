@@ -1,6 +1,6 @@
 const express = require('express');
 const route = express.Router();
-const { getRoute, getBusLocation, getLocationCodeSearchByName, getBus} = require('../controller/userController');
+const { getRoute, getBusLocation, getLocationCodeSearchByName, getBus} = require('../controller/busUserController');
 
 // API to fetch all bus locations
 route.post('/searchFor-buses', getBus);
