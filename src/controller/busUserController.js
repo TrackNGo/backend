@@ -3,9 +3,9 @@ const BusLocation = require('../models/busLocationModel');
 
 async function getBusLocation(req, res) {
     try {
-        const busId = req.params.busId;
-        console.log(busId)
-        const buses = await BusLocation.findOne({'busNumber':busId});
+        const busNumber = req.params.busNumber;
+        console.log(busNumber)
+        const buses = await BusLocation.findOne({'busNumber':busNumber});
         console.log(buses);
         return res.status(200).json(buses);
     } catch (error) {
@@ -14,7 +14,6 @@ async function getBusLocation(req, res) {
 }
 
 async function getLocationCodeSearchByName(req, res) {
-
     const { startLocation, endLocation } = req.body;
     const API_KEY = 'AIzaSyAiQ_WJER_3HDCs0B6tH01WPTCzB1COSLA';
 
@@ -117,7 +116,6 @@ async function getRoute(req, res) {
         res.status(500).json({ message: 'Error fetching route', error });
     }  
 }
-
 
 module.exports = {
     getRoute,
