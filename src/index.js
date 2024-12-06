@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors(
     {
         origin:'*',
-        methods: ['GET', 'POST'], // Allow specific HTTP methods
+        methods: ['GET', 'POST', 'PUT'], // Allow specific HTTP methods
         credentials: true // If you want to include cookies or authorization headers
     }
 ));
