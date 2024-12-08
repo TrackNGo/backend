@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const itemSchema = new mongoose.Schema({
     type: { type: String, required: true, enum: ['lost', 'found'] }, // 'lost' or 'found'
     userName: { type: String, required: true },
-    date: { type: Date, required: true }, // Date is now required
+    dateTime: { type: Date, required: true }, // Date is now required
     busRoute: { type: String, required: true },
     busNumber: { type: String, required: true },
     description: { type: String, required: true },

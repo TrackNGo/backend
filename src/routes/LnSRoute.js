@@ -5,7 +5,7 @@ const Item = require('../models/item');  // Import the Item model
 // Submit a lost or found item
 router.post('/submit', async (req, res) => {
   try {
-    const { type, userName, date, busRoute, busNumber, description, contactDetails } = req.body;
+    const { type, userName, dateTime, busRoute, busNumber, description, contactDetails } = req.body;
 
     // Validation of 'type' field
     if (!['lost', 'found'].includes(type)) {
@@ -16,7 +16,7 @@ router.post('/submit', async (req, res) => {
     const newItem = new Item({
       type,
       userName,
-      date,  // date is included directly
+      dateTime,  // date is included directly
       busRoute,
       busNumber,
       description,
@@ -25,7 +25,7 @@ router.post('/submit', async (req, res) => {
 
     // Save the item to the database
     const savedItem = await newItem.save();
-
+    console.log(savedItem)
     // Return the saved item as response
     res.status(201).json(savedItem);
   } catch (err) {
