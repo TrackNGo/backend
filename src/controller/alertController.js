@@ -6,7 +6,9 @@ async function setAlert(req, res) {
     
 }
 
-
+async function getSearch(req, res) {
+    
+}
 
 
 
