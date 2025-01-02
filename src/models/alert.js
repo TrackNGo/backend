@@ -10,7 +10,7 @@ const Alert = new mongoose.Schema({
         type : String,
         required: true
     },
-    dicription: {
+    decription: {
         type : String,
         required: true
     },
