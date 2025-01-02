@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const busUserRoute = require('./routes/busUserRoute');
 const busLocationRoute = require('./routes/busLocationRoutes');
+const lnsRoutes = require('./routes/LnSRoute');
 const { databaseConnection } = require('./config/dbConnection');
 const lnsRoutes=require('./routes/LnSRoute');
 
