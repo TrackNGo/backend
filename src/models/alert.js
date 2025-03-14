@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Alert = new mongoose.Schema({
+const AlertShcema = new mongoose.Schema({
 
-    busNumber: {
+   busNumber: {
         type : String,
         required: true
     },
@@ -10,7 +10,7 @@ const Alert = new mongoose.Schema({
         type : String,
         required: true
     },
-    decription: {
+    description: {
         type : String,
         required: true
     },
@@ -18,9 +18,9 @@ const Alert = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-}); 
+});  
 
 
-const alert = mongoose.model('alert', Alert);
+const Alert = mongoose.model('alert', AlertShcema);
 
-module.exports = alert;
+module.exports = Alert;

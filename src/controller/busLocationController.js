@@ -28,10 +28,14 @@ async function getDistance(req,res) {
     const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${first.lat},${first.lng}&destinations=${second.lat},${second.lng}&key=${apiKey}&mode=DRIVING`;
     try {
         const response = await axios.get(url);
+        console.log(response);
         if(response) {
 
             const distance = response.data.rows[0].elements[0].distance.value; // Distance in meters
             const duration = response.data.rows[0].elements[0].duration.value; // Distance in meters
+            console.log(distance);
+            console.log(duration);
+
             res.status(200).send({distance,duration});
         }
     } catch (error) {

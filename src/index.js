@@ -5,6 +5,7 @@ const cors = require('cors');
 const busUserRoute = require('./routes/busUserRoute');
 const busLocationRoute = require('./routes/busLocationRoutes');
 const lnsRoutes = require('./routes/LnSRoute');
+const alert = require('./routes/alert')
 const { databaseConnection } = require('./config/dbConnection');
 
 const app = express();
@@ -23,6 +24,7 @@ databaseConnection();
 
 app.use('/api-user', busUserRoute);
 app.use('/api-location', busLocationRoute);
+app.use('/api-alert', alert);
 app.use('/api/items', lnsRoutes);
 
 const PORT = process.env.CLIENT_BACKEND_PORT;
