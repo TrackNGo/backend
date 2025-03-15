@@ -1,34 +1,39 @@
 const axios = require("axios");
 const NewsModel = require("../models/NewsModel");
 
+const API_URL = "https://newsdata.io/api/1/news";
 const API_KEY = "pub_7471864d07fe62f409771941fa9a1c5e9cadd";
-const BASE_URL = "https://newsdata.io/api/1/news";
-const SEARCH_KEYWORDS = ["bus"];
-const COUNTRY = "us"; // Sri Lanka
-const LANGUAGE = "en"; // English
+const SEARCH_KEYWORDS = ["bus", "transport", "traffic", "road"];
 
+// Fetch and store news in MongoDB
 exports.fetchAndStoreNews = async (req, res) => {
     try {
-        const keywordQuery = SEARCH_KEYWORDS.join("%20OR%20"); // Formats query for API
-        const NEWS_API_URL = `${BASE_URL}?apikey=${API_KEY}&q=${keywordQuery}&country=${COUNTRY}&language=${LANGUAGE}`;
+        const response = await axios.get(API_URL, {
+            params: {
+                apikey: API_KEY,
+                q: "bus", 
+                country: "us",
+                language: "en",
+                category: "world"
+            }
+        });
 
-        const response = await axios.get(NEWS_API_URL);
         const articles = response.data.results;
 
         if (!articles || articles.length === 0) {
-            return res.status(404).json({ message: "No relevant news articles found" });
+            return res.status(404).json({ message: "No news articles found" });
         }
 
-        // Store only unique news articles in MongoDB
-        for (const article of articles) {
-            const exists = await NewsModel.findOne({ link: article.link });
+        // Store news in MongoDB (Avoid duplicates)
+        for (const news of articles) {
+            const exists = await NewsModel.findOne({ link: news.link });
             if (!exists) {
                 await NewsModel.create({
-                    title: article.title,
-                    description: article.description || "No description available",
-                    link: article.link,
-                    publishedDate: article.pubDate || new Date(),
-                    source: article.source_id || "Unknown",
+                    title: news.title,
+                    description: news.description || "No description available",
+                    link: news.link,
+                    publishedDate: news.pubDate || new Date(),
+                    source: news.source_id || "Unknown",
                 });
             }
         }
@@ -40,7 +45,7 @@ exports.fetchAndStoreNews = async (req, res) => {
     }
 };
 
-// Get stored transport news
+// Retrieve stored news from MongoDB
 exports.getStoredNews = async (req, res) => {
     try {
         const news = await NewsModel.find().sort({ publishedDate: -1 });
@@ -50,6 +55,7 @@ exports.getStoredNews = async (req, res) => {
         res.status(500).json({ message: "Error retrieving news", error: error.message });
     }
 };
+
 
 
 
