@@ -3,7 +3,7 @@ const NewsModel = require("../models/NewsModel");
 
 const API_KEY = "pub_7471864d07fe62f409771941fa9a1c5e9cadd";
 const BASE_URL = "https://newsdata.io/api/1/news";
-const SEARCH_KEYWORDS = ["bus", "transport", "traffic", "road"];
+const SEARCH_KEYWORDS = ["bus"];
 const COUNTRY = "us"; // Sri Lanka
 const LANGUAGE = "en"; // English
 
