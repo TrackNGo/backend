@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const lnsRoutes = require('./src/routes/LnSRoute');  // Importing your routes
+const lnsRoutes = require('./src/routes/LnSRoute');  
+const reportRoute= require('./src/routes/feedbackRoute');
 
 const app = express();
 const port = process.env.PORT || 5000;  // Set port (defaults to 5000 if not in .env)
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Use Routes
 app.use('/api/items', lnsRoutes);  // Prefix routes with /api/items
+app.use('/api/feedback', reportRoute);
 
 // Start the server
 app.listen(port, () => {
