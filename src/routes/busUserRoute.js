@@ -3,7 +3,7 @@ const router = express.Router();
 const { getRoute, getBusLocation, getLocationCodeSearchByName, getBus} = require('../controller/busUserController');
 
 // API to fetch all bus locations
-router.post('/searchFor-buses', getBus);
+router.get('/searchFor-buses/:start/:end', getBus);
 
 // API to fetch all bus locations
 router.post('/getSpecific-busRoute', getRoute);
