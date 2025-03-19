@@ -1,5 +1,6 @@
 const BusRoute = require('../models/busRouteModel');
 const BusLocation = require('../models/busLocationModel');
+const BusModel = require('../models/busModel');
 const axios = require('axios')
 
 async function getBusLocation(req, res) {
@@ -80,22 +81,20 @@ async function getLocationCodeSearchByName(req, res) {
 
 async function getBus(req, res) {
 
-    const { startLocation, endLocation } = req.body;
-
-    console.log(startLocation)
-    console.log(endLocation)
+    const start = req.params.start;
+    const end = req.params.end;
 
     try {
 
-        const busRouteWithBus = await BusRoute.find(
+        const busRouteWithBus = await BusModel.find(
             {
-                "startLocation":startLocation,
-                "endLocation":endLocation
+                startLocation:start,
+                endLocation:end
             }
         )
 
         console.log(busRouteWithBus)
-        res.json({busRouteWithBus});
+        res.json(busRouteWithBus);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching route', error });
     }  
