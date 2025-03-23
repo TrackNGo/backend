@@ -9,6 +9,7 @@ const alert = require('./routes/alert')
 const { databaseConnection } = require('./config/dbConnection');
 const newsRoute= require('./routes/newsRoute');
 const reportRoute = require('./routes/feedbackRoute')
+const emergencyRoute = require('./routes/emergencyRoute');
 
 const app = express();
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use('/api-alert', alert);
 app.use('/api/items', lnsRoutes);
 app.use('/api-news', newsRoute);
 app.use('/api-report',reportRoute)
+app.use('/api-emergency', emergencyRoute);
 
 const PORT = process.env.CLIENT_BACKEND_PORT;
 
