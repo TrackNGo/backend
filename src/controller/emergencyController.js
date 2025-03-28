@@ -3,7 +3,7 @@ const Emergency = require('../models/emergencyModel');
 const reportEmergency = async (req, res, next) => {
   try {
     const { busNumber, emergencyType, latitude, longitude } = req.body;
-    
+
     if (!busNumber || !emergencyType || !latitude || !longitude) {
       return res.status(400).json({
         success: false,
@@ -40,6 +40,29 @@ const getEmergencies = async (req, res, next) => {
   }
 };
 
+const getEmergenciesByBusNumber = async (req, res, next) => {
+  const busNumber = req.params.busNumber;
+  const today = new Date();
+  
+  const startOfDay = new Date(today);
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const endOfDay = new Date(today);
+  endOfDay.setHours(23, 59, 59, 999);
+
+
+  try {
+    const emergencies = await Emergency.find({ $and: [{ busNumber: busNumber }, { updatedAt: { $gte: startOfDay, $lt: endOfDay } }] }).sort('-createdAt');
+    res.status(200).json({
+      success: true,
+      count: emergencies.length,
+      data: emergencies
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const updateEmergencyStatus = async (req, res, next) => {
   try {
     const emergency = await Emergency.findById(req.params.id);
@@ -52,7 +75,7 @@ const updateEmergencyStatus = async (req, res, next) => {
     }
 
     const { status } = req.body;
-    
+
     if (status && ['reported', 'acknowledged', 'resolved'].includes(status)) {
       emergency.status = status;
       await emergency.save();
@@ -70,5 +93,6 @@ const updateEmergencyStatus = async (req, res, next) => {
 module.exports = {
   reportEmergency,
   getEmergencies,
-  updateEmergencyStatus
+  updateEmergencyStatus,
+  getEmergenciesByBusNumber
 };
