@@ -69,3 +69,18 @@ exports.getAllContacts = async (req, res) => {
     });
   }
 };
+
+exports.getAllBusServiceRequests = async (req, res) => {
+  try {
+    const busServiceRequests = await Contact.find({ type: 'bus-service' }).sort('-submittedAt');
+    res.status(200).json({
+      success: true,
+      data: busServiceRequests
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching bus service requests'
+    });
+  }
+};
