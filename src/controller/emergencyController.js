@@ -29,7 +29,15 @@ const reportEmergency = async (req, res, next) => {
 
 const getEmergencies = async (req, res, next) => {
   try {
-    const emergencies = await Emergency.find().sort('-createdAt');
+    const today = new Date();
+  
+    const startOfDay = new Date(today);
+    startOfDay.setHours(0, 0, 0, 0);
+  
+    const endOfDay = new Date(today);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const emergencies = await Emergency.find({$and : [{status:'reported'}, { updatedAt: { $gte: startOfDay, $lt: endOfDay }}]}).sort('-createdAt');
     res.status(200).json({
       success: true,
       count: emergencies.length,
@@ -43,7 +51,7 @@ const getEmergencies = async (req, res, next) => {
 const getEmergenciesByBusNumber = async (req, res, next) => {
   const busNumber = req.params.busNumber;
   const today = new Date();
-  
+
   const startOfDay = new Date(today);
   startOfDay.setHours(0, 0, 0, 0);
 
@@ -52,12 +60,8 @@ const getEmergenciesByBusNumber = async (req, res, next) => {
 
 
   try {
-    const emergencies = await Emergency.find({ $and: [{ busNumber: busNumber }, { updatedAt: { $gte: startOfDay, $lt: endOfDay } }] }).sort('-createdAt');
-    res.status(200).json({
-      success: true,
-      count: emergencies.length,
-      data: emergencies
-    });
+    const emergencies = await Emergency.find({ $and: [{ busNumber: busNumber }, { updatedAt: { $gte: startOfDay, $lt: endOfDay }}, {status:'reported'}] }).sort('-createdAt');
+    res.status(200).json({ emergencies });
   } catch (error) {
     next(error);
   }
@@ -74,12 +78,8 @@ const updateEmergencyStatus = async (req, res, next) => {
       });
     }
 
-    const { status } = req.body;
-
-    if (status && ['reported', 'acknowledged', 'resolved'].includes(status)) {
-      emergency.status = status;
-      await emergency.save();
-    }
+    emergency.status = 'resolved';
+    await emergency.save();
 
     res.status(200).json({
       success: true,
