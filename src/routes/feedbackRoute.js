@@ -18,7 +18,7 @@ router.post("/report", async (req, res) => {
     });
 
     await report.save();
-
+ 
     return res.status(201).json({ message: "Report submitted successfully" });
   } catch (err) {
     console.error(err);
